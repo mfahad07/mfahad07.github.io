@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script src="jsfuzz-master/fuzzy.controller.js"></script>
+		<script src="jsfuzz-master/lib/jquery.js"></script>
+		<script src="fuzzyParking.js"></script>
+		<title>Park Free</title>
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+		<script>
+			var currentPercent = [50, 50, 50, 50]; //x
+			var output;			//y
+			var userInput;		//dx
+			var index;
+
+			//to show current %full
+			function singleSelectChangeValue() {
+				var selObj = document.getElementById("demoVal");
+				var i = selObj.options[selObj.selectedIndex].value;
+				document.getElementById("demo").innerHTML = currentPercent[i].toFixed(2) + "% Full";
+			}
+
+			function getUserInput() {
+				//Getting Value
+				var selObj = document.getElementById("selectPercent");
+				index = document.getElementById("selectLot").selectedIndex;
+				var selValue = selObj.options[selObj.selectedIndex].value;
+				
+				//Setting Value
+				userInput = selValue;
+				calculate();
+				alert("Thank you");
+				document.getElementById('id01').style.display='none';
+			}
+
+			function Normalize(value){
+				if(value<0.0) value = 0.0;
+				else if(value>100.0) value = 100.0
+				return value/100.0;
+			}
+
+			function calculate() {
+				var x = Normalize(currentPercent[index]);
+				var dx = Normalize(userInput);
+				varX.fuzzyfy(x);
+				varDX.fuzzyfy(dx);
+				varY.fireRules();
+				output = varY.defuzzify();
+				//because the output was normalized before it get defuzzified
+				currentPercent[index] = (output * 20) + currentPercent[index];
+				if(currentPercent[index] > 100) currentPercent[index] = 100; //to limit max and min percentage
+				if(currentPercent[index] < 0) currentPercent[index] = 0;
+			}
+
+		</script>
+	</head>
+
+	<body>
+		<!-- Nav  -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="Parking.html">Parking</a></li>
+					<li><a href="Maps.html">Maps</a></li>
+					<li><a href="location.html">Info</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</nav>
+
+
+
+		<!-- CTA -->
+			<section id="cta" class="wrapper">
+				<div class="inner">
+					<h2>Share the costs of commuting and parking find a carpool buddy through TRU Rideshare, a free online app. <a href = https://www.trurideshare.com/Public/Home.aspx target="_blank"> Learn more </a> </h2>
+					<p>You can also register an additional vehicle on your long-term parking permit—whether it's economy, general, premium or reserved—so you and your carpool buddy can take turns driving if you wish. (Just make sure you transfer your permit between vehicles when you switch—and call the Parking Office if you leave it behind.) Email the Parking Office with the vehicle's licence plate and model to register.</p>
+				</div>
+			</section>
+
+
+
+
+		<!-- Banner -->
+			<section id="banner1">
+				
+
+					<!-- Show result -->
+					<p id="demo" >  </p>
+
+						<div id="rcorners2" style="width:50%;" align="center">
+						<div class="select-style" style="margin-bottom: 10px" >
+							<select id="demoVal">
+								<option value="" disabled selected >Select Parking lot</option>
+								<option value="0">Lot A</option>
+								<option value="1">Lot B</option>
+								<option value="2">Lot C</option>
+								<option value="3">Lot H</option>
+							</select>
+						</div>
+
+						<!--Modal contents-->
+						<button style="margin-bottom: 10px" id="checkVal" onclick="singleSelectChangeValue()" class="button1">Check Availability</button>
+							<div class="w3-container">
+								<button onclick="document.getElementById('id01').style.display='block'" class="button1">Help us increase the accuracy</button>
+								<div id="id01" class="w3-modal">
+									<div class="modal-content" id="rcorners1" style="width: 25%">
+										<div class="w3-container" align="center">
+											<span onclick="document.getElementById('id01').style.display='none'" class="close">&times;</span>
+											<p style="color:black">Select a parking lot: </p>
+											<div class="select-style">
+												<select id="selectLot">
+													<option value="0">Lot A</option>
+													<option value="1">Lot B</option>
+													<option value="2">Lot C</option>
+													<option value="3">Lot D</option>
+												</select>
+											</div>
+											<p style="color:black">Select %full</p>
+											<div class="select-style">
+												<select id="selectPercent" >
+													<option value="0">0%</option>
+													<option value="25">25%</option>
+													<option value="50">50%</option>
+													<option value="75">75%</option>
+													<option value="100">100%</option>
+												</select>
+											</div>
+											<br>
+											<button id="submitModal" class="button1" onclick="getUserInput()">Submit</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</section>
+
+
+
+<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="content">
+						<section>
+							<h3>Enforcement hours</h3>
+							<p>Pay parking is in effect at the TRU Kamloops campus from 8 a.m. to 5 p.m., Monday to Friday. On evenings, Saturdays, Sundays, statutory holidays and days that TRU is officially closed, there is no charge for use of pay parking lots. Vehicles must clearly display a valid permit or register with E-Permits during enforcement hours. Vehicles not complying with regulations are subject to a ticket and/or towing without warning at the owner's risk and expense.</p>
+						</section>
+						<section>
+							<h4>TRU Parking Office</h4>
+							<ul class="alt">
+							<p>Location: Campus Activity Centre.
+   			                       Contact: <br>
+								   email: parking@tru.ca <br>
+								 phone:  250-828-5368.</p>
+							</ul>
+						</section>
+						<section>
+							<h4>Follow TRU</h4>
+							<ul class="plain">
+								<li><a href="https://www.facebook.com/thompsonriversu"target= "_blank" ><i class="icon fa-twitter"></i>Facebook</a></li>
+								<li><a href="https://twitter.com/thompsonriversu"target= "_blank" ><i class="icon fa-facebook"></i>Twitter</a></li>
+								<li><a href="https://www.instagram.com/thompsonriversu/"target= "_blank"><i class="icon fa-instagram"></i>Instagram</a></li>
+								
+							</ul>
+						</section>
+					</div>
+				</div>
+			</footer>
+
+	</body>
+</html>
